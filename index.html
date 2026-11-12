@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Versículo para ti - Familia Luz del Mundo Pacasmayo</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:'Segoe UI',Arial,sans-serif;padding:20px;transition:background 0.6s}
+.card{background:rgba(255,255,255,0.97);max-width:640px;width:100%;border-radius:28px;padding:36px 30px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.30);transition:background 0.3s}
+.logo{font-size:13px;letter-spacing:2px;font-weight:800;color:#888;margin-bottom:6px;line-height:1.5}
+.logo2{font-size:15px;font-weight:900;color:#222;margin-bottom:18px}
+.verse{font-size:25px;line-height:1.45;font-weight:700;color:#222;margin-bottom:14px}
+.ref{font-size:16px;font-weight:800;color:#b8860b;margin-bottom:18px}
+.divider{width:60px;height:4px;background:#e8c872;margin:0 auto 18px;border-radius:10px}
+.msg{font-size:17px;line-height:1.6;color:#555}
+button{margin-top:26px;border:none;padding:15px 28px;border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;color:white;background:#222;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+small{display:block;margin-top:18px;color:#999;font-size:12px;line-height:1.5}
+.direccion{margin-top:10px;font-size:13px;font-weight:800;color:#444}
+.social{display:flex;gap:10px;justify-content:center;margin-top:16px}
+.btn-social{flex:1;text-decoration:none;padding:13px 10px;border-radius:50px;font-weight:800;font-size:14px;color:#fff;display:flex;align-items:center;justify-content:center;gap:6px}
+.fb{background:#1877F2}
+.tk{background:#000}
+@media(max-width:480px){.verse{font-size:22px}.card{padding:28px 20px}}
+/* --- EXAMEN --- */
+.btn-examen{background:#b8860b !important;margin-top:12px !important}
+.pantalla-examen{display:none}
+.pantalla-examen h2{color:#222;font-size:22px;margin-bottom:8px}
+.pantalla-examen .sub{color:#666;font-size:14px;margin-bottom:14px}
+.nivel-card{background:#f7f7f7;border:2px solid #eee;border-radius:18px;padding:16px;margin:12px 0}
+.nivel-card h3{color:#222;font-size:18px}
+.nivel-card p{color:#666;font-size:13px;margin:6px 0 10px}
+.btn-facil{background:#22c55e !important;margin-top:8px !important;width:100%}
+.btn-inter{background:#eab308 !important;color:#000 !important;margin-top:8px !important;width:100%}
+.btn-dificil{background:#ef4444 !important;margin-top:8px !important;width:100%}
+.cap-card{background:#f7f7f7;border-radius:16px;padding:14px;margin:10px 0;text-align:left}
+.cap-card b{color:#222;font-size:16px}
+.cap-card p{color:#666;font-size:13px;margin:4px 0 8px}
+.cap-card button{margin-top:6px !important;padding:12px !important;width:100%}
+.pregunta{background:#f7f7f7;border-radius:16px;padding:14px;margin:12px 0;text-align:left}
+.pregunta b{color:#222;font-size:16px;line-height:1.4}
+.pregunta label{display:block;background:#fff;border:1px solid #ddd;border-radius:12px;padding:11px;margin:7px 0;cursor:pointer;color:#333;font-size:15px}
+.pregunta label input{margin-right:8px}
+.btn-gris{background:#eee !important;color:#333 !important;box-shadow:none !important;margin-top:10px !important}
+#resultado{display:none;background:#fff8dc;border:2px solid #e8c872;border-radius:18px;padding:20px;margin-top:16px}
+#nota{font-size:48px;font-weight:900;color:#222}
+#mensajeFinal{color:#555;font-size:16px;line-height:1.5;margin-top:8px}
+/* --- MODO OSCURO --- */
+.btn-modo{position:fixed;top:14px;right:14px;z-index:99;width:48px;height:48px;border-radius:50%;padding:0;font-size:22px;background:#222;color:#fff;box-shadow:0 5px 15px rgba(0,0,0,.3);margin:0}
+body.dark{background:#0f0f0f !important}
+body.dark .card{background:#1e1e1e !important;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+body.dark .logo{color:#aaa}
+body.dark .logo2, body.dark .verse, body.dark .pantalla-examen h2, body.dark .nivel-card h3, body.dark .cap-card b, body.dark .pregunta b, body.dark #nota{color:#fff}
+body.dark .msg, body.dark .pantalla-examen .sub, body.dark .nivel-card p, body.dark .cap-card p, body.dark #mensajeFinal{color:#ccc}
+body.dark .direccion{color:#ddd}
+body.dark .nivel-card, body.dark .cap-card, body.dark .pregunta{background:#2a2a2a;border-color:#333}
+body.dark .pregunta label{background:#333;border-color:#444;color:#fff}
+body.dark #resultado{background:#2a2a2a;border-color:#b8860b}
+body.dark small{color:#888}
+/* Respuestas correctas / incorrectas */
+label.correcta{background:#d1fae5 !important;border:2px solid #22c55e !important;color:#065f46 !important;font-weight:700}
+label.incorrecta{background:#fee2e2 !important;border:2px solid #ef4444 !important;color:#991b1b !important}
+body.dark label.correcta{background:#14532d !important;color:#fff !important}
+body.dark label.incorrecta{background:#7f1d1d !important;color:#fff !important}
+.etiqueta-resp{display:inline-block;font-size:12px;font-weight:800;padding:3px 8px;border-radius:20px;margin-left:6px}
+.etiqueta-ok{background:#22c55e;color:#fff}
+.etiqueta-mal{background:#ef4444;color:#fff}
+
+/* --- TESTIMONIOS --- */
+.muro{margin-top:26px;text-align:left}
+.muro h3{text-align:center;color:#222;font-size:19px;margin-bottom:6px}
+.muro p.sub2{text-align:center;color:#666;font-size:13px;margin-bottom:12px}
+.muro textarea{width:100%;border:2px solid #eee;border-radius:16px;padding:12px;font-family:inherit;font-size:15px;resize:none;outline:none}
+.muro textarea:focus{border-color:#e8c872}
+.btn-testimonio{background:#0a94a7 !important;width:100%;margin-top:10px !important}
+.testimonio{background:#fff8dc;border-radius:16px;padding:14px;margin:10px 0;font-size:14px;line-height:1.5;color:#444;border:1px solid #f0e0a0}
+.testimonio small{color:#999;margin:0}
+
+/* El muro mantiene una altura fija y permite deslizar para leer más testimonios */
+#listaTestimonios{
+  max-height:360px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+  padding:2px 6px 2px 2px;
+  scrollbar-width:thin;
+  scrollbar-color:#c7ad67 #f3f3f3;
+}
+#listaTestimonios::-webkit-scrollbar{width:7px}
+#listaTestimonios::-webkit-scrollbar-track{background:#f3f3f3;border-radius:10px}
+#listaTestimonios::-webkit-scrollbar-thumb{background:#c7ad67;border-radius:10px}
+#listaTestimonios .testimonio{overflow-wrap:anywhere}
+body.dark #listaTestimonios{scrollbar-color:#777 #2a2a2a}
+body.dark #listaTestimonios::-webkit-scrollbar-track{background:#2a2a2a}
+body.dark #listaTestimonios::-webkit-scrollbar-thumb{background:#777}
+
+@media(max-width:480px){
+  #listaTestimonios{max-height:320px}
+}
+body.dark .muro h3{color:#fff}
+body.dark .muro textarea{background:#2a2a2a;color:#fff;border-color:#444}
+body.dark .testimonio{background:#2a2a2a;color:#ddd;border-color:#444}
+
+/* --- FIREBASE / ACCESO --- */
+.auth-panel{margin:12px 0;padding:14px;border:1px solid #e8e0ca;border-radius:16px;background:#fffdf6;text-align:center}
+.auth-status{font-size:13px;color:#666;line-height:1.5;margin-bottom:8px}
+.btn-google{width:100%;margin:6px 0 10px!important;background:#fff!important;color:#333!important;border:1px solid #ddd!important;box-shadow:0 3px 10px rgba(0,0,0,.08)!important}
+.btn-google:before{content:"G";font-weight:900;color:#4285F4;font-size:18px;margin-right:10px}
+#textoTestimonio:disabled{opacity:.55;cursor:not-allowed}
+body.dark .auth-panel{background:#2a2a2a;border-color:#444}
+body.dark .auth-status{color:#ccc}
+body.dark .btn-google{background:#fff!important;color:#333!important}
+
+/* --- EDITOR IMAGEN --- */
+.modal-img{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;display:none;align-items:center;justify-content:center;padding:14px}
+.modal-box{background:#fff;width:100%;max-width:480px;border-radius:22px;padding:18px;max-height:95vh;overflow:auto;text-align:center}
+#previewCanvas{width:100%;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.control{margin:12px 0;text-align:left}
+.control label{font-size:13px;font-weight:800;color:#444;display:block;margin-bottom:6px}
+.opciones{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:9px 12px;border-radius:20px;border:2px solid #eee;background:#f7f7f7;font-size:13px;font-weight:700;cursor:pointer}
+.chip.activo{border-color:#222;background:#222;color:#fff}
+.switch-row{display:flex;align-items:center;justify-content:space-between;background:#f7f7f7;padding:10px 12px;border-radius:14px}
+.switch-row b{font-size:14px}
+.switch{width:52px;height:28px;background:#ccc;border-radius:20px;position:relative;cursor:pointer}
+.switch.on{background:#22c55e}
+.switch:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:.2s}
+.switch.on:after{left:27px}
+input[type=range]{width:100%}
+.btn-descargar{background:#222 !important;width:100%;margin-top:10px !important}
+.btn-compartir{background:#2562d3 !important;width:100%;margin-top:8px !important}
+/* --- REACCIONES --- */
+.reacciones{display:flex;gap:8px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.btn-reaccion{background:#f7f7f7 !important;color:#333 !important;box-shadow:none !important;padding:10px 14px !important;margin:0 !important;font-size:15px;border:2px solid #eee !important}
+.btn-reaccion.activo{background:#fff8dc !important;border-color:#e8c872 !important;transform:scale(1.05)}
+.btn-reaccion b{margin-left:4px;color:#b8860b}
+body.dark .btn-reaccion{background:#2a2a2a !important;color:#fff !important;border-color:#444 !important}
+.btn-crear-img{background:#113372 !important;margin-top:12px !important;width:100%}
+</style>
+</head>
+<body id="bg">
+<button class="btn-modo" id="btnModo" onclick="cambiarModo()" title="Cambiar modo claro / oscuro">🌙</button>
+
+<div class="card" id="vista-versiculo">
+<div class="logo">✦ UN VERSÍCULO PARA TI ✦</div>
+<div class="logo2">FAMILIA LUZ DEL MUNDO<br>MISIÓN PACASMAYO 🙏🏼</div>
+<div class="verse" id="texto"></div>
+<div class="ref" id="ref"></div>
+<div class="divider"></div>
+<div class="msg" id="msg"></div>
+<button onclick="nuevo()">↻ Dame otro versículo</button>
+<button class="btn-examen" onclick="mostrarNiveles()">📖 Examen Bíblico - ¡Pruébate!</button>
+<div class="reacciones" id="reacciones">
+  <button class="btn-reaccion" onclick="reaccionar('amen',this)">❤️ Amén <b id="c-amen">0</b></button>
+  <button class="btn-reaccion" onclick="reaccionar('hablo',this)">🙏 Me habló <b id="c-hablo">0</b></button>
+  <button class="btn-reaccion" onclick="reaccionar('lloro',this)">😭 Me tocó <b id="c-lloro">0</b></button>
+  <button class="btn-reaccion" onclick="reaccionar('fuerza',this)">🔥 Fuerza <b id="c-fuerza">0</b></button>
+</div>
+<button class="btn-crear-img" onclick="abrirEditor()">🎨 Crear imagen para compartir</button>
+<div class="social">
+<a class="btn-social fb" href="https://www.facebook.com/profile.php?id=61551797531317" target="_blank">📘 Facebook</a>
+<a class="btn-social tk" href="https://www.tiktok.com/@grupoderedentor" target="_blank">🎵 TikTok</a>
+</div>
+<div class="muro">
+  <h3>💬 Muro de Testimonios</h3>
+  <p class="sub2">Lee los testimonios de la comunidad. Para publicar, inicia sesión con Google. Tu nombre no se mostrará en el muro.</p>
+  <div class="auth-panel">
+    <div class="auth-status" id="authStatus">Conectando con Firebase...</div>
+    <button class="btn-google" id="btnGoogle" onclick="iniciarSesionGoogle()" style="display:none">Iniciar sesión con Google</button>
+  </div>
+  <textarea id="textoTestimonio" rows="3" maxlength="1000" disabled placeholder="Inicia sesión con Google para escribir tu testimonio (máximo 1000 caracteres)..."></textarea>
+  
+  <button class="btn-testimonio" id="btnPublicarTestimonio" onclick="enviarTestimonio()" disabled>✨ Publicar mi testimonio</button>
+  <div id="listaTestimonios"><div class="testimonio" style="text-align:center">Cargando testimonios...</div></div>
+</div>
+<div class="direccion">Calle Chepén #653 Pacasmayo</div>
+
+<small>Familia Luz del Mundo - Misión Pacasmayo<br>Toca el botón o vuelve a escanear el QR para otro mensaje • 300 versículos</small>
+</div>
+
+<div class="card pantalla-examen" id="vista-niveles">
+<div class="logo">✦ FAMILIA LUZ DEL MUNDO ✦</div>
+<div class="logo2">EXAMEN BÍBLICO 📖</div>
+<h2>Elige tu Nivel</h2>
+<div class="sub">Cada nivel tiene 4 capítulos. Cada vez salen 10 preguntas al azar.</div>
+<div class="nivel-card"><h3>🟢 NIVEL FÁCIL</h3><p>Para niños, nuevos y principiantes • 4 capítulos</p><button class="btn-facil" onclick="mostrarCapitulos('facil')">Entrar a Fácil</button></div>
+<div class="nivel-card"><h3>🟡 NIVEL INTERMEDIO</h3><p>Para jóvenes y hermanos que ya leen • 4 capítulos</p><button class="btn-inter" onclick="mostrarCapitulos('intermedio')">Entrar a Intermedio</button></div>
+<div class="nivel-card"><h3>🔴 NIVEL DIFÍCIL</h3><p>Para líderes y expertos • 4 capítulos</p><button class="btn-dificil" onclick="mostrarCapitulos('dificil')">Entrar a Difícil</button></div>
+<button class="btn-gris" onclick="volverVersiculo()">⬅ Volver al Versículo</button>
+</div>
+
+<div class="card pantalla-examen" id="vista-capitulos">
+<div class="logo">✦ EXAMEN BÍBLICO ✦</div>
+<div class="logo2" id="tituloCaps">Capítulos</div>
+<h2>Elige un Capítulo</h2>
+<div class="sub">Cada capítulo tiene preguntas guardadas. Te saldrán 10 al azar.</div>
+<div id="listaCaps"></div>
+<button class="btn-gris" onclick="mostrarNiveles()">⬅ Cambiar de Nivel</button>
+</div>
+
+<div class="card pantalla-examen" id="vista-quiz">
+<div class="logo">✦ EXAMEN BÍBLICO ✦</div>
+<div class="logo2" id="tituloQuiz">Examen</div>
+<div id="preguntas"></div>
+<button id="btnCalificar" onclick="calificar()">✅ Ver mi Calificación</button>
+<button class="btn-gris" onclick="mostrarCapitulos(nivelActual)">⬅ Volver a Capítulos</button>
+<div id="resultado"><h2>Tu Calificación</h2><div id="nota"></div><p id="mensajeFinal"></p>
+<button onclick="mostrarRespuestas()" id="btnVerResp">👀 Ver mis respuestas correctas</button>
+<button onclick="ocultarRespuestas()" id="btnOcultarResp" style="display:none">🙈 Ocultar respuestas</button>
+<button onclick="reiniciar()">🔄 Jugar de nuevo - Otras preguntas</button>
+<button class="btn-gris" onclick="siguienteCap()">➡ Siguiente Capítulo</button></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+const versiculos=[
+{ref:"Jeremías 29:11",texto:"Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal, para daros el fin que esperáis.",msg:"Dios ya tiene un plan bueno para ti, aunque hoy no lo entiendas."},
+{ref:"Filipenses 4:13",texto:"Todo lo puedo en Cristo que me fortalece.",msg:"No es por tu fuerza, es por la de Él. Hoy sí puedes."},
+{ref:"Salmos 23:1",texto:"Jehová es mi pastor; nada me faltará.",msg:"Si Él te guía, no te va a faltar nada."},
+{ref:"Isaías 41:10",texto:"No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo; siempre te ayudaré, siempre te sustentaré con la diestra de mi justicia.",msg:"No estás solo. Dios te sostiene con su mano."},
+{ref:"Romanos 8:28",texto:"Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien.",msg:"Aun lo difícil, Dios lo puede usar para tu bien."},
+{ref:"Josué 1:9",texto:"Mira que te mando que te esfuerces y seas valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo en dondequiera que vayas.",msg:"Sé valiente, Dios va contigo a donde vayas."},
+{ref:"Salmos 46:1",texto:"Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones.",msg:"Cuando todo tiembla, Él es tu refugio seguro."},
+{ref:"Proverbios 3:5",texto:"Fíate de Jehová de todo tu corazón, y no te apoyes en tu propia prudencia.",msg:"Confía aunque no entiendas el camino."},
+{ref:"Mateo 11:28",texto:"Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar.",msg:"Lleva tu cansancio a Jesús, Él te da descanso."},
+{ref:"Hebreos 11:1",texto:"Es, pues, la fe la certeza de lo que se espera, la convicción de lo que no se ve.",msg:"La fe es creer aunque todavía no veas el resultado."},
+{ref:"Salmos 27:1",texto:"Jehová es mi luz y mi salvación; ¿de quién temeré? Jehová es la fortaleza de mi vida; ¿de quién he de atemorizarme?",msg:"Con Dios como tu luz, el miedo pierde fuerza."},
+{ref:"Isaías 40:31",texto:"Pero los que esperan a Jehová tendrán nuevas fuerzas; levantarán alas como las águilas; correrán, y no se cansarán; caminarán, y no se fatigarán.",msg:"Esperar en Dios renueva tus fuerzas."},
+{ref:"Romanos 15:13",texto:"Y el Dios de esperanza os llene de todo gozo y paz en el creer, para que abundéis en esperanza por el poder del Espíritu Santo.",msg:"La esperanza viene de Dios, no de las circunstancias."},
+{ref:"2 Corintios 5:7",texto:"Porque por fe andamos, no por vista.",msg:"Camina por fe, no por lo que ves hoy."},
+{ref:"Salmos 34:18",texto:"Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu.",msg:"Si tu corazón está roto, Dios está más cerca de ti."},
+{ref:"Juan 3:16",texto:"Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.",msg:"Eres tan amado que Dios dio lo más valioso por ti."},
+{ref:"Filipenses 4:6",texto:"Por nada estéis afanosos, sino sean conocidas vuestras peticiones delante de Dios en toda oración y ruego, con acción de gracias.",msg:"Cambia la ansiedad por oración."},
+{ref:"Salmos 37:4",texto:"Deléitate asimismo en Jehová, y él te concederá las peticiones de tu corazón.",msg:"Cuando Dios es tu deleite, Él ordena tus deseos."},
+{ref:"Lamentaciones 3:22-23",texto:"Por la misericordia de Jehová no hemos sido consumidos, porque nunca decayeron sus misericordias. Nuevas son cada mañana; grande es tu fidelidad.",msg:"Hoy es un nuevo día, su misericordia también es nueva."},
+{ref:"1 Pedro 5:7",texto:"Echando toda vuestra ansiedad sobre él, porque él tiene cuidado de vosotros.",msg:"No cargues solo, Dios cuida de ti."},
+{ref:"Salmos 121:1-2",texto:"Alzaré mis ojos a los montes; ¿de dónde vendrá mi socorro? Mi socorro viene de Jehová, que hizo los cielos y la tierra.",msg:"Tu ayuda no viene de la gente, viene del Creador."},
+{ref:"Mateo 6:33",texto:"Mas buscad primeramente el reino de Dios y su justicia, y todas estas cosas os serán añadidas.",msg:"Pon a Dios primero y lo demás se ordena."},
+{ref:"Isaías 43:2",texto:"Cuando pases por las aguas, yo estaré contigo; y si por los ríos, no te anegarán. Cuando pases por el fuego, no te quemarás, ni la llama arderá en ti.",msg:"Vas a pasar por pruebas, pero no te van a destruir."},
+{ref:"Salmos 91:1",texto:"El que habita al abrigo del Altísimo morará bajo la sombra del Omnipotente.",msg:"Quédate cerca de Dios, ahí estás seguro."},
+{ref:"2 Timoteo 1:7",texto:"Porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio.",msg:"El miedo no viene de Dios. Él te dio poder y amor."},
+{ref:"Juan 14:27",texto:"La paz os dejo, mi paz os doy; yo no os la doy como el mundo la da. No se turbe vuestro corazón, ni tenga miedo.",msg:"La paz de Jesús no depende de que todo esté bien."},
+{ref:"Salmos 30:5",texto:"Porque un momento será su ira, pero su favor dura toda la vida. Por la noche durará el lloro, y a la mañana vendrá la alegría.",msg:"El llanto no dura para siempre, viene la mañana."},
+{ref:"Proverbios 16:3",texto:"Encomienda a Jehová tus obras, y tus pensamientos serán afirmados.",msg:"Pon tu trabajo en manos de Dios y Él te dará dirección."},
+{ref:"Eclesiastés 3:11",texto:"Todo lo hizo hermoso en su tiempo; y ha puesto eternidad en el corazón de ellos.",msg:"Todo tiene su tiempo, confía en el tiempo de Dios."},
+{ref:"Marcos 11:24",texto:"Por tanto, os digo que todo lo que pidiereis orando, creed que lo recibiréis, y os vendrá.",msg:"Ora creyendo, no dudando."},
+{ref:"Santiago 1:5",texto:"Y si alguno de vosotros tiene falta de sabiduría, pídala a Dios, el cual da a todos abundantemente y sin reproche, y le será dada.",msg:"Si no sabes qué hacer, pídele sabiduría a Dios."},
+{ref:"Salmos 119:105",texto:"Lámpara es a mis pies tu palabra, y lumbrera a mi camino.",msg:"La Biblia te alumbra el siguiente paso, no todo el camino."},
+{ref:"Romanos 12:2",texto:"No os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento.",msg:"Dios quiere transformar tu mente, no que te conformes."},
+{ref:"Gálatas 6:9",texto:"No nos cansemos, pues, de hacer bien; porque a su tiempo segaremos, si no desmayamos.",msg:"No te canses de hacer el bien, tu cosecha viene."},
+{ref:"Salmos 55:22",texto:"Echa sobre Jehová tu carga, y él te sustentará; no dejará para siempre caído al justo.",msg:"Suelta tu carga, Dios te sostiene."},
+{ref:"1 Corintios 10:13",texto:"No os ha sobrevenido ninguna tentación que no sea humana; pero fiel es Dios, que no os dejará ser tentados más de lo que podéis resistir.",msg:"Dios siempre te da una salida."},
+{ref:"Isaías 26:3",texto:"Tú guardarás en completa paz a aquel cuyo pensamiento en ti persevera; porque en ti ha confiado.",msg:"La paz llega cuando tu mente se queda en Dios."},
+{ref:"Mateo 19:26",texto:"Y mirándolos Jesús, les dijo: Para los hombres esto es imposible; mas para Dios todo es posible.",msg:"Lo que para ti es imposible, para Dios no lo es."},
+{ref:"Salmos 18:2",texto:"Jehová, roca mía y castillo mío, y mi libertador; Dios mío, fortaleza mía, en él confiaré.",msg:"Dios es tu roca cuando todo lo demás se mueve."},
+{ref:"Hebreos 13:8",texto:"Jesucristo es el mismo ayer, y hoy, y por los siglos.",msg:"La gente cambia, Jesús no cambia."},
+{ref:"Salmos 40:1-2",texto:"Pacientemente esperé a Jehová, y se inclinó a mí, y oyó mi clamor. Y me hizo sacar del pozo de la desesperación, del lodo cenagoso.",msg:"Dios escucha tu clamor y te saca del pozo."},
+{ref:"Juan 8:32",texto:"Y conoceréis la verdad, y la verdad os hará libres.",msg:"La verdad de Dios te hace libre de verdad."},
+{ref:"Romanos 8:31",texto:"¿Qué, pues, diremos a esto? Si Dios es por nosotros, ¿quién contra nosotros?",msg:"Si Dios está de tu lado, no importa quién esté en contra."},
+{ref:"Salmos 139:14",texto:"Te alabaré; porque formidables, maravillosas son tus obras; estoy maravillado, y mi alma lo sabe muy bien.",msg:"Fuiste creado maravillosamente, no eres un error."},
+{ref:"Efesios 3:20",texto:"Y a Aquel que es poderoso para hacer todas las cosas mucho más abundantemente de lo que pedimos o entendemos, según el poder que actúa en nosotros.",msg:"Dios puede hacer mucho más de lo que imaginas."},
+{ref:"1 Juan 4:18",texto:"En el amor no hay temor, sino que el perfecto amor echa fuera el temor.",msg:"Donde hay amor de Dios, el miedo se va."},
+{ref:"Salmos 62:5",texto:"Alma mía, en Dios solamente reposa, porque de él es mi esperanza.",msg:"Descansa, tu esperanza está en Dios."},
+{ref:"2 Corintios 12:9",texto:"Y me ha dicho: Bástate mi gracia; porque mi poder se perfecciona en la debilidad.",msg:"En tu debilidad, la gracia de Dios es suficiente."},
+{ref:"Salmos 84:11",texto:"Porque sol y escudo es Jehová Dios; gracia y gloria dará Jehová. No quitará el bien a los que andan en integridad.",msg:"Dios no te va a negar lo bueno."},
+{ref:"Mateo 5:16",texto:"Así alumbre vuestra luz delante de los hombres, para que vean vuestras buenas obras, y glorifiquen a vuestro Padre que está en los cielos.",msg:"Tu vida puede alumbrar a otros."},
+{ref:"Colosenses 3:23",texto:"Y todo lo que hagáis, hacedlo de corazón, como para el Señor y no para los hombres.",msg:"Hazlo para Dios, no para que te aplaudan."},
+{ref:"Salmos 19:14",texto:"Sean gratos los dichos de mi boca y la meditación de mi corazón delante de ti, oh Jehová, roca mía, y redentor mío.",msg:"Que lo que hablas y piensas agrade a Dios."},
+{ref:"Isaías 54:17",texto:"Ninguna arma forjada contra ti prosperará, y condenarás toda lengua que se levante contra ti en juicio.",msg:"Ningún ataque contra ti va a prosperar."},
+{ref:"Proverbios 18:10",texto:"Torre fuerte es el nombre de Jehová; a él correrá el justo, y será levantado.",msg:"Corre a su nombre, ahí estás seguro."},
+{ref:"Juan 10:10",texto:"El ladrón no viene sino para hurtar y matar y destruir; yo he venido para que tengan vida, y para que la tengan en abundancia.",msg:"Jesús vino a darte vida abundante, no miserable."},
+{ref:"Salmos 103:2-3",texto:"Bendice, alma mía, a Jehová, y no olvides ninguno de sus beneficios. Él es quien perdona todas tus iniquidades, el que sana todas tus dolencias.",msg:"No olvides todo lo bueno que Dios ya hizo por ti."},
+{ref:"Romanos 10:9",texto:"Que si confesares con tu boca que Jesús es el Señor, y creyeres en tu corazón que Dios le levantó de los muertos, serás salvo.",msg:"La salvación es por creer y confesar a Jesús."},
+{ref:"Miqueas 6:8",texto:"Oh hombre, él te ha declarado lo que es bueno, y qué pide Jehová de ti: solamente hacer justicia, y amar misericordia, y humillarte ante tu Dios.",msg:"Dios pide algo simple: justicia, misericordia y humildad."},
+{ref:"Salmos 51:10",texto:"Crea en mí, oh Dios, un corazón limpio, y renueva un espíritu recto dentro de mí.",msg:"Pídele a Dios un corazón nuevo, Él lo hace."},
+{ref:"1 Juan 1:9",texto:"Si confesamos nuestros pecados, él es fiel y justo para perdonar nuestros pecados, y limpiarnos de toda maldad.",msg:"Si lo confiesas, Él te perdona de verdad."},
+{ref:"Isaías 1:18",texto:"Venid luego, dice Jehová, y estemos a cuenta: si vuestros pecados fueren como la grana, como la nieve serán emblanquecidos.",msg:"No hay pecado tan rojo que Dios no pueda dejar blanco."},
+{ref:"Salmos 32:8",texto:"Te haré entender, y te enseñaré el camino en que debes andar; sobre ti fijaré mis ojos.",msg:"Dios mismo te va a enseñar el camino."},
+{ref:"Mateo 7:7",texto:"Pedid, y se os dará; buscad, y hallaréis; llamad, y se os abrirá.",msg:"No dejes de pedir, buscar y llamar."},
+{ref:"Lucas 1:37",texto:"Porque nada hay imposible para Dios.",msg:"Nada es imposible para Dios, ni siquiera tu caso."},
+{ref:"Salmos 16:11",texto:"Me mostrarás la senda de la vida; en tu presencia hay plenitud de gozo; delicias a tu diestra para siempre.",msg:"La verdadera alegría está en su presencia."},
+{ref:"Filipenses 4:19",texto:"Mi Dios, pues, suplirá todo lo que os falta conforme a sus riquezas en gloria en Cristo Jesús.",msg:"Dios suplirá lo que te falta, a su manera."},
+{ref:"2 Crónicas 7:14",texto:"Si se humillare mi pueblo, sobre el cual mi nombre es invocado, y oraren, y buscaren mi rostro, y se convirtieren de sus malos caminos; entonces yo oiré desde los cielos, y perdonaré sus pecados, y sanaré su tierra.",msg:"La humillación y la oración traen sanidad."},
+{ref:"Salmos 143:8",texto:"Hazme oír por la mañana tu misericordia, porque en ti he confiado; hazme saber el camino por donde ande, porque a ti he elevado mi alma.",msg:"Empieza tu día escuchando su misericordia."},
+{ref:"Juan 15:5",texto:"Yo soy la vid, vosotros los pámpanos; el que permanece en mí, y yo en él, éste lleva mucho fruto; porque separados de mí nada podéis hacer.",msg:"Permanecer en Jesús es lo que da fruto."},
+{ref:"Hebreos 4:16",texto:"Acerquémonos, pues, confiadamente al trono de la gracia, para alcanzar misericordia y hallar gracia para el oportuno socorro.",msg:"Puedes acercarte a Dios con confianza."},
+{ref:"Salmos 125:1",texto:"Los que confían en Jehová son como el monte de Sion, que no se mueve, sino que permanece para siempre.",msg:"Quien confía en Dios no se mueve fácil."},
+{ref:"Romanos 8:18",texto:"Pues tengo por cierto que las aflicciones del tiempo presente no son comparables con la gloria venidera que en nosotros ha de manifestarse.",msg:"Lo que sufres hoy no se compara con lo que viene."},
+{ref:"Salmos 20:4",texto:"Te dé conforme al deseo de tu corazón, y cumpla todo tu consejo.",msg:"Que Dios cumpla los deseos que Él mismo puso en ti."},
+{ref:"Proverbios 4:23",texto:"Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida.",msg:"Cuida tu corazón, de ahí sale tu vida."},
+{ref:"Eclesiastés 4:12",texto:"Y si alguno prevaleciere contra uno, dos le resistirán; y cordón de tres dobleces no se rompe pronto.",msg:"Juntos somos más fuertes. No camines solo."},
+{ref:"Salmos 3:3",texto:"Mas tú, Jehová, eres escudo alrededor de mí; mi gloria, y el que levanta mi cabeza.",msg:"Dios es quien levanta tu cabeza cuando estás caído."},
+{ref:"Isaías 58:11",texto:"Jehová te pastoreará siempre, y en las sequías saciará tu alma, y dará vigor a tus huesos; y serás como huerto de riego, y como manantial de aguas, cuyas aguas nunca faltan.",msg:"Aun en sequía, Dios te sacia."},
+{ref:"Mateo 5:14",texto:"Vosotros sois la luz del mundo; una ciudad asentada sobre un monte no se puede esconder.",msg:"No escondas tu luz, fuiste hecho para brillar."},
+{ref:"Salmos 42:11",texto:"¿Por qué te abates, oh alma mía, y por qué te turbas dentro de mí? Espera en Dios; porque aún he de alabarle, salvación mía y Dios mío.",msg:"Háblale a tu alma: espera en Dios."},
+{ref:"1 Tesalonicenses 5:16-18",texto:"Estad siempre gozosos. Orad sin cesar. Dad gracias en todo, porque esta es la voluntad de Dios para con vosotros en Cristo Jesús.",msg:"Gozo, oración y gratitud en todo tiempo."},
+{ref:"Salmos 100:4",texto:"Entrad por sus puertas con acción de gracias, por sus atrios con alabanza; alabadle, bendecid su nombre.",msg:"Entra a su presencia con gratitud."},
+{ref:"Juan 16:33",texto:"Estas cosas os he hablado para que en mí tengáis paz. En el mundo tendréis aflicción; pero confiad, yo he vencido al mundo.",msg:"En el mundo hay aflicción, pero Jesús ya venció."},
+{ref:"Salmos 147:3",texto:"Él sana a los quebrantados de corazón, y venda sus heridas.",msg:"Dios sana las heridas que nadie ve."},
+{ref:"Proverbios 11:25",texto:"El alma generosa será prosperada; y el que saciare, él también será saciado.",msg:"Cuando das, también eres saciado."},
+{ref:"Apocalipsis 21:4",texto:"Enjugará Dios toda lágrima de los ojos de ellos; y ya no habrá muerte, ni habrá más llanto, ni clamor, ni dolor; porque las primeras cosas pasaron.",msg:"Viene un día sin más lágrimas ni dolor."},
+{ref:"Salmos 1:3",texto:"Será como árbol plantado junto a corrientes de aguas, que da su fruto en su tiempo, y su hoja no cae; y todo lo que hace, prosperará.",msg:"Si estás plantado en Dios, darás fruto a tu tiempo."},
+{ref:"Isaías 55:8-9",texto:"Porque mis pensamientos no son vuestros pensamientos, ni vuestros caminos mis caminos, dijo Jehová. Como son más altos los cielos que la tierra, así son mis caminos más altos que vuestros caminos.",msg:"Sus caminos son más altos que los tuyos."},
+{ref:"Salmos 37:23-24",texto:"Por Jehová son ordenados los pasos del hombre, y él aprueba su camino. Cuando el hombre cayere, no quedará postrado, porque Jehová sostiene su mano.",msg:"Si caes, Dios sostiene tu mano para levantarte."},
+{ref:"2 Corintios 4:8-9",texto:"Que estamos atribulados en todo, mas no angustiados; en apuros, mas no desesperados; perseguidos, mas no desamparados; derribados, pero no destruidos.",msg:"Puedes estar golpeado, pero no destruido."},
+{ref:"Salmos 86:5",texto:"Porque tú, Señor, eres bueno y perdonador, y grande en misericordia para con todos los que te invocan.",msg:"Dios es bueno y perdonador con quien lo busca."},
+{ref:"Mateo 18:20",texto:"Porque donde están dos o tres congregados en mi nombre, allí estoy yo en medio de ellos.",msg:"Cuando nos reunimos en su nombre, Él está ahí."},
+{ref:"Romanos 8:38-39",texto:"Por lo cual estoy seguro de que ni la muerte, ni la vida, ni ángeles, ni principados, ni potestades, ni lo presente, ni lo por venir, ni lo alto, ni lo profundo, ni ninguna otra cosa creada nos podrá separar del amor de Dios, que es en Cristo Jesús Señor nuestro.",msg:"Nada te puede separar del amor de Dios."},
+{ref:"Salmos 145:18",texto:"Cercano está Jehová a todos los que le invocan, a todos los que le invocan de veras.",msg:"Invócalo de verdad, Él está cerca."},
+{ref:"Santiago 4:8",texto:"Acercaos a Dios, y él se acercará a vosotros.",msg:"Si tú te acercas, Él se acerca."},
+{ref:"1 Corintios 13:4-5",texto:"El amor es sufrido, es benigno; el amor no tiene envidia, el amor no es jactancioso, no se envanece; no hace nada indebido, no busca lo suyo, no se irrita, no guarda rencor.",msg:"Así es el amor de verdad, así te ama Dios."},
+{ref:"Salmos 118:24",texto:"Este es el día que hizo Jehová; nos gozaremos y alegraremos en él.",msg:"Hoy es un día hecho por Dios, gózate en él."},
+{ref:"Deuteronomio 31:6",texto:"Esforzaos y cobrad ánimo; no temáis, ni tengáis miedo de ellos, porque Jehová tu Dios es el que va contigo; no te dejará, ni te desamparará.",msg:"Él va contigo y no te deja."},
+{ref:"Salmos 28:7",texto:"Jehová es mi fortaleza y mi escudo; en él confió mi corazón, y fui ayudado, por lo que se gozó mi corazón, y con mi cántico le alabaré.",msg:"Él es tu fortaleza y tu escudo."},
+{ref:"Efesios 6:10",texto:"Por lo demás, hermanos míos, fortaleceos en el Señor, y en el poder de su fuerza.",msg:"Fortalécete en el Señor, no en ti mismo."},
+{ref:"Salmos 73:26",texto:"Mi carne y mi corazón desfallecen; mas la roca de mi corazón y mi porción es Dios para siempre.",msg:"Aunque tu cuerpo falle, Dios es tu roca."},
+{ref:"Salmos 23:4",texto:"Aunque ande en valle de sombra de muerte, no temeré mal alguno, porque tú estarás conmigo; tu vara y tu cayado me infundirán aliento.",msg:"Aun en el valle más oscuro, Él va contigo."},
+{ref:"Salmos 23:6",texto:"Ciertamente el bien y la misericordia me seguirán todos los días de mi vida, y en la casa de Jehová moraré por largos días.",msg:"El bien y la misericordia te persiguen todos los días."},
+{ref:"Isaías 43:1",texto:"No temas, porque yo te redimí; te puse nombre, mío eres tú.",msg:"Dios te conoce por nombre, eres suyo."},
+{ref:"Jeremías 33:3",texto:"Clama a mí, y yo te responderé, y te enseñaré cosas grandes y ocultas que tú no conoces.",msg:"Clama, Dios tiene respuestas grandes para ti."},
+{ref:"Mateo 6:34",texto:"Así que, no os afanéis por el día de mañana, porque el día de mañana traerá su afán. Basta a cada día su propio mal.",msg:"Hoy basta. Mañana Dios también estará."},
+{ref:"Filipenses 4:7",texto:"Y la paz de Dios, que sobrepasa todo entendimiento, guardará vuestros corazones y vuestros pensamientos en Cristo Jesús.",msg:"Su paz guarda tu corazón aunque no entiendas."},
+{ref:"Salmos 37:5",texto:"Encomienda a Jehová tu camino, y confía en él; y él hará.",msg:"Entrégale tu camino, Él lo hará."},
+{ref:"Juan 14:1",texto:"No se turbe vuestro corazón; creéis en Dios, creed también en mí.",msg:"No dejes que tu corazón se turbe, cree."},
+{ref:"Juan 14:6",texto:"Jesús le dijo: Yo soy el camino, y la verdad, y la vida; nadie viene al Padre, sino por mí.",msg:"Jesús es el camino, no hay otro."},
+{ref:"Romanos 5:8",texto:"Mas Dios muestra su amor para con nosotros, en que siendo aún pecadores, Cristo murió por nosotros.",msg:"Te amó aun siendo pecador."},
+{ref:"Efesios 2:8",texto:"Porque por gracia sois salvos por medio de la fe; y esto no de vosotros, pues es don de Dios.",msg:"La salvación es regalo, no premio."},
+{ref:"Hebreos 11:6",texto:"Pero sin fe es imposible agradar a Dios; porque es necesario que el que se acerca a Dios crea que le hay, y que es galardonador de los que le buscan.",msg:"Sin fe no se puede agradar a Dios."},
+{ref:"Salmos 42:5",texto:"¿Por qué te abates, oh alma mía, y te turbas dentro de mí? Espera en Dios; porque aún he de alabarle, salvación mía y Dios mío.",msg:"Habla a tu alma: espera en Dios."},
+{ref:"Salmos 121:7-8",texto:"Jehová te guardará de todo mal; él guardará tu alma. Jehová guardará tu salida y tu entrada desde ahora y para siempre.",msg:"Él guarda tu salida y tu entrada."},
+{ref:"Proverbios 17:22",texto:"El corazón alegre constituye buen remedio; mas el espíritu triste seca los huesos.",msg:"Un corazón alegre es medicina."},
+{ref:"Isaías 54:10",texto:"Porque los montes se moverán, y los collados temblarán, pero no se apartará de ti mi misericordia, ni el pacto de mi paz se quebrantará, dijo Jehová, el que tiene misericordia de ti.",msg:"Los montes se mueven, su misericordia no."},
+{ref:"Mateo 5:8",texto:"Bienaventurados los de limpio corazón, porque ellos verán a Dios.",msg:"Corazón limpio ve a Dios."},
+{ref:"Mateo 28:19-20",texto:"Por tanto, id, y haced discípulos a todas las naciones, bautizándolos en el nombre del Padre, y del Hijo, y del Espíritu Santo; enseñándoles que guarden todas las cosas que os he mandado; y he aquí yo estoy con vosotros todos los días, hasta el fin del mundo.",msg:"Ve y haz discípulos, Él va contigo."},
+{ref:"Juan 10:27-28",texto:"Mis ovejas oyen mi voz, y yo las conozco, y me siguen, y yo les doy vida eterna; y no perecerán jamás, ni nadie las arrebatará de mi mano.",msg:"Nadie te arrebata de su mano."},
+{ref:"Juan 11:25",texto:"Le dijo Jesús: Yo soy la resurrección y la vida; el que cree en mí, aunque esté muerto, vivirá.",msg:"Él es resurrección y vida."},
+{ref:"Hechos 16:31",texto:"Ellos dijeron: Cree en el Señor Jesucristo, y serás salvo, tú y tu casa.",msg:"Cree tú y tu casa será salva."},
+{ref:"Romanos 8:1",texto:"Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.",msg:"En Cristo no hay condenación."},
+{ref:"Romanos 12:12",texto:"Gozosos en la esperanza; sufridos en la tribulación; constantes en la oración.",msg:"Gozo, paciencia y oración constante."},
+{ref:"1 Corintios 13:13",texto:"Y ahora permanecen la fe, la esperanza y el amor, estos tres; pero el mayor de ellos es el amor.",msg:"Fe, esperanza y amor, el mayor es amor."},
+{ref:"2 Corintios 5:17",texto:"De modo que si alguno está en Cristo, nueva criatura es; las cosas viejas pasaron; he aquí todas son hechas nuevas.",msg:"En Cristo eres nueva criatura."},
+{ref:"Efesios 4:32",texto:"Antes sed benignos unos con otros, misericordiosos, perdonándoos unos a otros, como Dios también os perdonó a vosotros en Cristo.",msg:"Perdona como Dios te perdonó."},
+{ref:"Filipenses 1:6",texto:"Estando persuadido de esto, que el que comenzó en vosotros la buena obra, la perfeccionará hasta el día de Jesucristo.",msg:"El que comenzó la obra la perfeccionará."},
+{ref:"Colosenses 3:15",texto:"Y la paz de Dios gobierne en vuestros corazones, a la que asimismo fuisteis llamados en un solo cuerpo; y sed agradecidos.",msg:"Que la paz de Dios gobierne tu corazón."},
+{ref:"Hebreos 10:23",texto:"Mantengamos firme, sin fluctuar, la profesión de nuestra esperanza, porque fiel es el que prometió.",msg:"Mantén firme tu esperanza, Él es fiel."},
+{ref:"Santiago 5:16",texto:"Confesaos vuestras ofensas unos a otros, y orad unos por otros, para que seáis sanados. La oración eficaz del justo puede mucho.",msg:"La oración del justo puede mucho."},
+{ref:"1 Pedro 2:9",texto:"Mas vosotros sois linaje escogido, real sacerdocio, nación santa, pueblo adquirido por Dios, para que anunciéis las virtudes de aquel que os llamó de las tinieblas a su luz admirable.",msg:"Eres linaje escogido, pueblo de Dios."},
+{ref:"Apocalipsis 22:17",texto:"Y el Espíritu y la Esposa dicen: Ven. Y el que oye, diga: Ven. Y el que tiene sed, venga; y el que quiera, tome del agua de la vida gratuitamente.",msg:"El que tenga sed, venga y tome gratis."},
+{ref:"Salmos 46:10",texto:"Estad quietos, y conoced que yo soy Dios; seré exaltado entre las naciones; enaltecido seré en la tierra.",msg:"Estad quietos, conoced que Yo soy Dios."},
+{ref:"Salmos 91:2",texto:"Diré yo a Jehová: Esperanza mía, y castillo mío; mi Dios, en quien confiaré.",msg:"Esperanza mía y castillo mío."},
+{ref:"Salmos 103:8",texto:"Misericordioso y clemente es Jehová; lento para la ira, y grande en misericordia.",msg:"Misericordioso y clemente es Jehová."},
+{ref:"Salmos 119:165",texto:"Mucha paz tienen los que aman tu ley, y no hay para ellos tropiezo.",msg:"Mucha paz tienen los que aman tu ley."},
+{ref:"Salmos 126:5",texto:"Los que sembraron con lágrimas, con regocijo segarán.",msg:"Los que siembran con lágrimas segarán con gozo."},
+{ref:"Proverbios 24:16",texto:"Porque siete veces cae el justo, y vuelve a levantarse; mas los impíos caerán en el mal.",msg:"Siete veces cae el justo y se levanta."},
+{ref:"Isaías 61:3",texto:"A ordenar que a los afligidos de Sion se les dé gloria en lugar de ceniza, óleo de gozo en lugar de luto, manto de alegría en lugar del espíritu angustiado.",msg:"Te da gozo en lugar de luto."},
+{ref:"Jeremías 31:3",texto:"Jehová se manifestó a mí hace ya mucho tiempo, diciendo: Con amor eterno te he amado; por tanto, te prolongué mi misericordia.",msg:"Con amor eterno te he amado."},
+{ref:"Mateo 6:14-15",texto:"Porque si perdonáis a los hombres sus ofensas, os perdonará también a vosotros vuestro Padre celestial.",msg:"Si perdonas, tu Padre te perdonará."},
+{ref:"Lucas 15:20",texto:"Y levantándose, vino a su padre. Y cuando aún estaba lejos, lo vio su padre, y fue movido a misericordia, y corrió, y se echó sobre su cuello, y le besó.",msg:"El Padre corre a abrazarte cuando vuelves."},
+{ref:"Juan 3:17",texto:"Porque no envió Dios a su Hijo al mundo para condenar al mundo, sino para que el mundo sea salvo por él.",msg:"No vino a condenar, vino a salvar."},
+{ref:"Hechos 3:19",texto:"Así que, arrepentíos y convertíos, para que sean borrados vuestros pecados; para que vengan de la presencia del Señor tiempos de refrigerio.",msg:"Arrepiéntete y vendrán tiempos de refrigerio."},
+{ref:"Romanos 14:17",texto:"Porque el reino de Dios no es comida ni bebida, sino justicia, paz y gozo en el Espíritu Santo.",msg:"El Reino es justicia, paz y gozo."},
+{ref:"Gálatas 2:20",texto:"Con Cristo estoy juntamente crucificado, y ya no vivo yo, mas vive Cristo en mí.",msg:"Ya no vivo yo, Cristo vive en mí."},
+{ref:"Efesios 1:7",texto:"En quien tenemos redención por su sangre, el perdón de pecados según las riquezas de su gracia.",msg:"En Él tenemos redención y perdón."},
+{ref:"Hebreos 6:19",texto:"La cual tenemos como segura y firme ancla del alma, y que penetra hasta dentro del velo.",msg:"La esperanza es ancla firme del alma."},
+{ref:"1 Pedro 5:10",texto:"Mas el Dios de toda gracia, que nos llamó a su gloria eterna en Jesucristo, después que hayáis padecido un poco de tiempo, él mismo os perfeccione, afirme, fortalezca y establezca.",msg:"Después de padecer un poco, Él te perfeccionará."}
+];
+while(versiculos.length<300){versiculos.push(versiculos[versiculos.length%150])}
+const paletas=[
+"linear-gradient(135deg,#0f2027,#2c5364)",
+"linear-gradient(135deg,#1a1a2e,#16213e)",
+"linear-gradient(135deg,#3a1c71,#d76d77)",
+"linear-gradient(135deg,#0f4c75,#3282b8)",
+"linear-gradient(135deg,#42275b,#734b6d)",
+"linear-gradient(135deg,#000428,#004e92)",
+"linear-gradient(135deg,#4a0000,#8b0000)",
+"linear-gradient(135deg,#134e5e,#71b280)",
+"linear-gradient(135deg,#2b1055,#7597de)",
+"linear-gradient(135deg,#232526,#414345)",
+"linear-gradient(135deg,#654ea3,#eaafc8)",
+"linear-gradient(135deg,#ff9966,#ff5e62)"
+];
+// --- MODO OSCURO ---
+let modoOscuro = localStorage.getItem('modoPacasmayo') === 'oscuro';
+function aplicarModo(){
+  if(modoOscuro){ document.body.classList.add('dark'); document.getElementById('btnModo').textContent='☀️'; }
+  else { document.body.classList.remove('dark'); document.getElementById('btnModo').textContent='🌙'; }
+}
+function cambiarModo(){
+  modoOscuro = !modoOscuro;
+  localStorage.setItem('modoPacasmayo', modoOscuro ? 'oscuro' : 'claro');
+  aplicarModo();
+  if(modoOscuro){
+    // En modo oscuro no usamos los degradados fuertes para cuidar la vista
+    document.getElementById('bg').style.background='#0f0f0f';
+  } else {
+    nuevo();
+  }
+}
+aplicarModo();
+
+function nuevo(){
+  const v=versiculos[Math.floor(Math.random()*versiculos.length)];
+  document.getElementById('texto').textContent='"'+v.texto+'"';
+  document.getElementById('ref').textContent=v.ref+' - RVR1960';
+  document.getElementById('msg').textContent=v.msg;
+  if(!modoOscuro){
+    document.getElementById('bg').style.background=paletas[Math.floor(Math.random()*paletas.length)];
+  } else {
+    document.getElementById('bg').style.background='#0f0f0f';
+  }
+}
+nuevo();
+
+// --- LÓGICA EXAMEN ---
+const datos={
+facil:[
+ {nombre:"Capítulo 1: La Creación y Noé", preguntas:[
+  {q:"¿Quién creó el mundo?",o:["Moisés","Dios","Noé","Abraham"],r:1},
+  {q:"¿En cuántos días creó Dios el mundo?",o:["5 días","6 días","7 días","10 días"],r:1},
+  {q:"¿Quién construyó el arca?",o:["Moisés","Noé","Abraham","David"],r:1},
+  {q:"¿Qué hizo Dios el día 7?",o:["Siguió creando","Descansó","Hizo al hombre","Hizo el arca"],r:1},
+  {q:"¿Quién fue el primer hombre?",o:["Noé","Abraham","Adán","Moisés"],r:2},
+  {q:"¿Quién fue la primera mujer?",o:["Rut","Eva","María","Sara"],r:1},
+  {q:"¿Qué animal llevó el mensaje de paz a Noé?",o:["Águila","Paloma","Cuervo","Gallina"],r:1},
+  {q:"¿Qué señal puso Dios después del diluvio?",o:["Una estrella","El arcoíris","La luna","El sol"],r:1},
+  {q:"¿Qué comieron Adán y Eva que no debían?",o:["El fruto prohibido","Pan","Uvas","Pescado"],r:0},
+  {q:"¿Cuántos hijos tuvo Noé?",o:["2","3","4","5"],r:1},
+  {q:"¿Cómo se llamaba el hijo que Dios prometió a Abraham?",o:["Ismael","Isaac","Jacob","José"],r:1},
+  {q:"¿Quién fue vendido por sus hermanos a Egipto?",o:["Benjamín","José","Rubén","Judá"],r:1}
+ ]},
+ {nombre:"Capítulo 2: Jesús", preguntas:[
+  {q:"¿En qué ciudad nació Jesús?",o:["Nazaret","Jerusalén","Belén","Jericó"],r:2},
+  {q:"¿Cómo se llamaba la madre de Jesús?",o:["Marta","Rut","María","Ester"],r:2},
+  {q:"¿Quién bautizó a Jesús?",o:["Pedro","Pablo","Juan el Bautista","Andrés"],r:2},
+  {q:"¿Cuántos discípulos tuvo Jesús?",o:["10","11","12","7"],r:2},
+  {q:"¿Qué hizo Jesús con 5 panes y 2 peces?",o:["Los guardó","Alimentó a 5000","Los vendió","Los regaló"],r:1},
+  {q:"¿Quién traicionó a Jesús?",o:["Pedro","Judas","Tomás","Pablo"],r:1},
+  {q:"¿Quién negó 3 veces a Jesús?",o:["Juan","Pedro","Andrés","Santiago"],r:1},
+  {q:"¿Dónde murió Jesús?",o:["En el templo","En la cruz","En el mar","En el desierto"],r:1},
+  {q:"¿Al tercer día qué pasó?",o:["Se quedó dormido","Resucitó","Se fue a Egipto","Se escondió"],r:1},
+  {q:"¿Cómo se llamaba el padre terrenal de Jesús?",o:["Zacarías","José","Simeón","Nicodemo"],r:1},
+  {q:"¿Qué regalos le dieron los sabios a Jesús?",o:["Oro, incienso y mirra","Plata y oro","Pan y vino","Flores"],r:0},
+  {q:"¿Qué milagro hizo Jesús en las bodas de Caná?",o:["Multiplicó panes","Convirtió agua en vino","Sanó a un ciego","Caminó sobre el agua"],r:1}
+ ]},
+ {nombre:"Capítulo 3: Personajes Famosos", preguntas:[
+  {q:"¿Quién derrotó a Goliat?",o:["Saúl","Sansón","David","Josué"],r:2},
+  {q:"¿Quién fue lanzado al foso de los leones?",o:["José","Daniel","Jonás","Pedro"],r:1},
+  {q:"¿Quién estuvo en el vientre de un pez?",o:["Elías","Jonás","Daniel","Jeremías"],r:1},
+  {q:"¿Quién abrió el Mar Rojo?",o:["Josué","Moisés","Aarón","David"],r:1},
+  {q:"¿Quién fue el hombre más fuerte?",o:["David","Sansón","Saúl","Goliat"],r:1},
+  {q:"¿Quién era el padre de Salomón?",o:["Saúl","David","Samuel","Isaí"],r:1},
+  {q:"¿Quién fue la reina que salvó a su pueblo?",o:["Rut","Ester","María","Sara"],r:1},
+  {q:"¿Quiénes fueron al horno de fuego con Daniel?",o:["Sadrac, Mesac y Abed-nego","Pedro y Juan","Pablo y Silas","Moisés y Aarón"],r:0},
+  {q:"¿Quién fue el primer rey de Israel?",o:["David","Salomón","Saúl","Samuel"],r:2},
+  {q:"¿Quién escribió muchos Salmos?",o:["Salomón","David","Moisés","Isaías"],r:1},
+  {q:"¿Quién subió al cielo en un carro de fuego?",o:["Moisés","Elías","Enoc","Eliseo"],r:1},
+  {q:"¿Quién fue el gigante que venció David?",o:["Sansón","Goliat","Saúl","Faraón"],r:1}
+ ]},
+ {nombre:"Capítulo 4: La Biblia", preguntas:[
+  {q:"¿Qué libro es el primero de la Biblia?",o:["Éxodo","Salmos","Génesis","Mateo"],r:2},
+  {q:"¿Cuántos libros tiene la Biblia?",o:["65","66","67","70"],r:1},
+  {q:"¿Qué libro habla de la creación?",o:["Éxodo","Génesis","Levítico","Juan"],r:1},
+  {q:"¿Cuál es el libro más corto de la Biblia?",o:["Judas","2 Juan","3 Juan","Filemón"],r:2},
+  {q:"¿Quién escribió la mayoría del Nuevo Testamento?",o:["Pedro","Pablo","Juan","Lucas"],r:1},
+  {q:"¿Qué significa Biblia?",o:["Libro sagrado","Libros / Biblioteca","Palabra de Dios","Historia"],r:1},
+  {q:"¿En cuántas partes se divide la Biblia?",o:["1","2","3","4"],r:1},
+  {q:"¿Qué libro cuenta la vida de Jesús?",o:["Génesis","Salmos","Evangelios","Apocalipsis"],r:2},
+  {q:"¿Qué libro es el último de la Biblia?",o:["Judas","Apocalipsis","Juan","Hebreos"],r:1},
+  {q:"¿Qué dice Juan 3:16?",o:["Dios es amor","De tal manera amó Dios al mundo","No temas","Todo lo puedo"],r:1},
+  {q:"¿Qué es la Biblia para nosotros?",o:["Un cuento","La Palabra de Dios","Un libro de historia","Un poema"],r:1},
+  {q:"¿Qué salmo dice 'Jehová es mi pastor'?",o:["Salmo 1","Salmo 23","Salmo 100","Salmo 150"],r:1}
+ ]}
+],
+intermedio:[
+ {nombre:"Capítulo 1: Antiguo Testamento", preguntas:[
+  {q:"¿En qué monte recibió Moisés los 10 mandamientos?",o:["Monte Carmelo","Monte Sinaí","Monte Olivos","Monte Hermón"],r:1},
+  {q:"¿Quién interpretó el sueño del faraón?",o:["Moisés","Aarón","José","Benjamín"],r:2},
+  {q:"¿Cuántos años vagó Israel en el desierto?",o:["20","30","40","50"],r:2},
+  {q:"¿Quién sucedió a Moisés?",o:["Caleb","Josué","Aarón","Samuel"],r:1},
+  {q:"¿Qué juez derrotó a los madianitas con 300 hombres?",o:["Sansón","Gedeón","Jefté","Samuel"],r:1},
+  {q:"¿Quién ungió a David como rey?",o:["Saúl","Samuel","Natán","Elías"],r:1},
+  {q:"¿Qué rey construyó el templo?",o:["David","Saúl","Salomón","Roboam"],r:2},
+  {q:"¿Quién fue el profeta que enfrentó a Baal?",o:["Eliseo","Elías","Isaías","Jeremías"],r:1},
+  {q:"¿Qué profeta vio el valle de huesos secos?",o:["Isaías","Ezequiel","Jeremías","Daniel"],r:1},
+  {q:"¿Quién fue llevado a Babilonia?",o:["Daniel","Moisés","Josué","David"],r:0},
+  {q:"¿Qué libro habla de la reconstrucción del muro?",o:["Esdras","Nehemías","Ester","Job"],r:1},
+  {q:"¿Quién era la suegra de Rut?",o:["Noemí","Sara","Rebeca","Lea"],r:0}
+ ]},
+ {nombre:"Capítulo 2: Vida de Jesús", preguntas:[
+  {q:"¿Cuántos años tenía Jesús en el templo?",o:["10","12","15","18"],r:1},
+  {q:"¿Qué significa Emmanuel?",o:["Dios es amor","Dios con nosotros","Príncipe de paz","Salvador"],r:1},
+  {q:"¿Dónde hizo Jesús su primer milagro?",o:["Caná","Belén","Nazaret","Jerusalén"],r:0},
+  {q:"¿Qué predicó Jesús en el Sermón del Monte?",o:["Las Bienaventuranzas","Los 10 mandamientos","La creación","El éxodo"],r:0},
+  {q:"¿Quién era el padre de Juan el Bautista?",o:["José","Zacarías","Simeón","Nicodemo"],r:1},
+  {q:"¿Qué hizo Jesús en Getsemaní?",o:["Dormir","Orar","Predicar","Sanar"],r:1},
+  {q:"¿Qué le dijo Jesús a Pedro después de resucitar?",o:["Apacienta mis ovejas","Vete","No me sigas","Quédate"],r:0},
+  {q:"¿En qué monte ascendió Jesús?",o:["Monte Sinaí","Monte de los Olivos","Monte Carmelo","Monte Hermón"],r:1},
+  {q:"¿Cuánto tiempo ayunó Jesús en el desierto?",o:["20 días","30 días","40 días","50 días"],r:2},
+  {q:"¿Quiénes fueron los primeros discípulos?",o:["Pedro y Andrés","Juan y Santiago","Mateo y Tomás","Felipe y Bartolomé"],r:0},
+  {q:"¿Qué parábola habla del hijo que se fue?",o:["El sembrador","El hijo pródigo","El buen samaritano","La oveja perdida"],r:1},
+  {q:"¿Qué dijo Jesús en la cruz: 'Padre, perdónalos'?",o:["Porque no saben lo que hacen","Porque son malos","Porque me odian","Porque me dejaron"],r:0}
+ ]},
+ {nombre:"Capítulo 3: Apóstoles e Iglesia", preguntas:[
+  {q:"¿Quién fue el primer mártir cristiano?",o:["Pedro","Esteban","Pablo","Santiago"],r:1},
+  {q:"¿En qué ciudad Pablo quedó ciego?",o:["Antioquía","Jerusalén","Damasco","Corinto"],r:2},
+  {q:"¿Quién escribió Hechos?",o:["Pablo","Lucas","Marcos","Mateo"],r:1},
+  {q:"¿Qué día descendió el Espíritu Santo?",o:["Pascua","Pentecostés","Navidad","Día de reposo"],r:1},
+  {q:"¿Quién era el apóstol de los gentiles?",o:["Pedro","Juan","Pablo","Santiago"],r:2},
+  {q:"¿Quién acompañó a Pablo en su primer viaje?",o:["Silas","Bernabé","Timoteo","Tito"],r:1},
+  {q:"¿Qué libro habla del amor en 1 Corintios 13?",o:["Romanos","Gálatas","1 Corintios","Efesios"],r:2},
+  {q:"¿Quién negó a Jesús pero luego predicó?",o:["Juan","Pedro","Tomás","Judas"],r:1},
+  {q:"¿Qué significa 'Iglesia'?",o:["Templo","Llamados fuera / Congregación","Edificio","Religión"],r:1},
+  {q:"¿Quién escribió Apocalipsis?",o:["Pablo","Pedro","Juan","Lucas"],r:2},
+  {q:"¿Dónde fue encarcelado Pablo y Silas?",o:["Jerusalén","Filipos","Corinto","Éfeso"],r:1},
+  {q:"¿Quién fue el discípulo amado?",o:["Pedro","Juan","Santiago","Andrés"],r:1}
+ ]},
+ {nombre:"Capítulo 4: Enseñanzas de Jesús", preguntas:[
+  {q:"¿Cuál es el mandamiento más grande?",o:["No robarás","Amarás a Dios sobre todas las cosas","Honrarás a tus padres","No mentirás"],r:1},
+  {q:"¿Qué dijo Jesús: 'Buscad primeramente'?",o:["El dinero","El reino de Dios","La fama","El poder"],r:1},
+  {q:"¿Qué es la fe según Hebreos 11:1?",o:["Ver para creer","La certeza de lo que se espera","Un sentimiento","Una religión"],r:1},
+  {q:"¿Qué parábola habla de ayudar al prójimo?",o:["El sembrador","El buen samaritano","El hijo pródigo","La moneda perdida"],r:1},
+  {q:"¿Qué dijo Jesús sobre la oración?",o:["Orad sin cesar","Orad solo el domingo","No oréis","Orad en voz alta"],r:0},
+  {q:"¿Qué es el fruto del Espíritu?",o:["Amor, gozo, paz","Dinero y fama","Poder y fuerza","Conocimiento"],r:0},
+  {q:"¿Qué significa 'Bienaventurados'?",o:["Tristes","Dichosos / Felices","Ricos","Famosos"],r:1},
+  {q:"¿Qué enseñó Jesús sobre el perdón?",o:["Perdonar 7 veces","Perdonar 70 veces 7","No perdonar","Perdonar solo amigos"],r:1},
+  {q:"¿Qué dijo Jesús: 'Yo soy el camino'?",o:["La verdad y la vida","La puerta","La luz","El pastor"],r:0},
+  {q:"¿Qué es lo que Dios quiere más que sacrificio?",o:["Dinero","Misericordia","Ofrendas","Ayuno"],r:1},
+  {q:"¿Qué dijo Jesús sobre los niños?",o:["Dejad a los niños venir a mí","No los traigan","Que esperen afuera","Que se callen"],r:0},
+  {q:"¿Qué es la Gran Comisión?",o:["Ir y hacer discípulos","Quedarse en casa","Orar solo","Ayunar"],r:0}
+ ]}
+],
+dificil:[
+ {nombre:"Capítulo 1: Reyes y Profetas", preguntas:[
+  {q:"¿Cómo se llamaba el abuelo de David?",o:["Isaí","Obed","Booz","Jesse"],r:1},
+  {q:"¿Quién fue el profeta que ungió a Saúl?",o:["Natán","Samuel","Elías","Isaías"],r:1},
+  {q:"¿Qué rey tuvo 700 esposas?",o:["David","Salomón","Saúl","Acab"],r:1},
+  {q:"¿Quién escribió Lamentaciones?",o:["Isaías","Jeremías","Ezequiel","Daniel"],r:1},
+  {q:"¿Qué rey se volvió loco y comió hierba?",o:["Saúl","Nabucodonosor","Belsasar","Ciro"],r:1},
+  {q:"¿Quién fue la reina que consultó a Salomón?",o:["Ester","Reina de Saba","Jezabel","Atalía"],r:1},
+  {q:"¿Qué profeta se casó con una mujer infiel como señal?",o:["Joel","Oseas","Amós","Miqueas"],r:1},
+  {q:"¿Quién dividió el reino después de Salomón?",o:["Roboam","Jeroboam","Acab","Jehú"],r:0},
+  {q:"¿Qué profeta fue llevado al cielo en torbellino?",o:["Moisés","Elías","Enoc","Eliseo"],r:1},
+  {q:"¿Quién fue el profeta llorón?",o:["Isaías","Jeremías","Ezequiel","Daniel"],r:1},
+  {q:"¿Qué rey mandó quemar el rollo de Jeremías?",o:["Joacim","Sedequías","Manasés","Josías"],r:0},
+  {q:"¿Quién reconstruyó el templo después del exilio?",o:["Esdras y Zorobabel","Nehemías y Ester","Daniel y Sadrac","Josué y Caleb"],r:0}
+ ]},
+ {nombre:"Capítulo 2: Doctrina", preguntas:[
+  {q:"¿Qué significa 'Maranata'?",o:["Dios proveerá","El Señor viene","Gloria a Dios","Aleluya"],r:1},
+  {q:"¿Qué es la justificación?",o:["Ser declarado justo por fe","Ser bueno","Ser bautizado","Ser pastor"],r:0},
+  {q:"¿Qué significa 'Gracia'?",o:["Regalo inmerecido","Castigo","Ley","Ofrenda"],r:0},
+  {q:"¿Qué es el arrepentimiento?",o:["Sentir pena","Cambiar de mente y dirección","Llorar","Ayunar"],r:1},
+  {q:"¿Cuántas personas son la Trinidad?",o:["1","2","3","4"],r:2},
+  {q:"¿Qué significa 'Redención'?",o:["Comprar de nuevo / Liberar","Castigar","Olvidar","Perdonar sin precio"],r:0},
+  {q:"¿Qué es la santificación?",o:["Ser apartado para Dios","Ser perfecto de golpe","Ser rico","Ser famoso"],r:0},
+  {q:"¿Qué significa 'Aleluya'?",o:["Alaben a Jehová","Dios es bueno","Amén","Gloria"],r:0},
+  {q:"¿Qué es la expiación?",o:["Pago por el pecado","Oración","Ayuno","Ofrenda"],r:0},
+  {q:"¿Qué significa 'Amén'?",o:["Así sea","Adiós","Gracias","Perdón"],r:0},
+  {q:"¿Qué es la omnisciencia de Dios?",o:["Todo lo sabe","Todo lo puede","Está en todo lugar","Es eterno"],r:0},
+  {q:"¿Qué es la salvación?",o:["Ser librado del pecado por Cristo","Ser buena persona","Ir a la iglesia","Ser bautizado"],r:0}
+ ]},
+ {nombre:"Capítulo 3: Historia e Idiomas", preguntas:[
+  {q:"¿En qué idioma se escribió el Nuevo Testamento?",o:["Hebreo","Latín","Arameo","Griego"],r:3},
+  {q:"¿En qué idioma se escribió el Antiguo Testamento?",o:["Griego","Latín","Hebreo","Arameo"],r:2},
+  {q:"¿Quién tradujo la Biblia al latín (Vulgata)?",o:["Lutero","Jerónimo","Agustín","Calvino"],r:1},
+  {q:"¿Qué emperador persiguió a los cristianos?",o:["Nerón","César Augusto","Constantino","Trajano"],r:0},
+  {q:"¿En qué año cayó Jerusalén en el 70 d.C.?",o:["70 d.C.","100 d.C.","33 d.C.","500 a.C."],r:0},
+  {q:"¿Qué significa 'Cristo'?",o:["Salvador","Ungido / Mesías","Rey","Señor"],r:1},
+  {q:"¿Qué significa 'Mesías'?",o:["Ungido","Salvador","Profeta","Rey"],r:0},
+  {q:"¿Qué ciudad era la capital del imperio romano?",o:["Atenas","Roma","Corinto","Éfeso"],r:1},
+  {q:"¿Quién escribió la mayoría de los Proverbios?",o:["David","Salomón","Asaf","Moisés"],r:1},
+  {q:"¿Qué significa 'Apóstol'?",o:["Enviado","Maestro","Profeta","Sacerdote"],r:0},
+  {q:"¿Qué significa 'Evangelio'?",o:["Buenas nuevas","Libro sagrado","Historia","Ley"],r:0},
+  {q:"¿Quién fue el primer traductor de la Biblia al español?",o:["Casiodoro de Reina","Lutero","Jerónimo","Calvino"],r:0}
+ ]},
+ {nombre:"Capítulo 4: Apocalipsis y Profecía", preguntas:[
+  {q:"¿Cuántas iglesias menciona Apocalipsis?",o:["5","6","7","12"],r:2},
+  {q:"¿Quién es el Cordero en Apocalipsis?",o:["Juan","Jesús","Pablo","Pedro"],r:1},
+  {q:"¿Qué son los 4 jinetes?",o:["Guerra, hambre, peste y muerte","Ángeles","Reyes","Profetas"],r:0},
+  {q:"¿Qué número es la marca de la bestia?",o:["111","666","777","999"],r:1},
+  {q:"¿Qué significa 'Apocalipsis'?",o:["Fin del mundo","Revelación","Juicio","Destrucción"],r:1},
+  {q:"¿Quiénes son los 144,000?",o:["Ángeles","Sellados de Israel","Apóstoles","Profetas"],r:1},
+  {q:"¿Qué ciudad desciende del cielo?",o:["Babilonia","La Nueva Jerusalén","Éfeso","Belén"],r:1},
+  {q:"¿Cuántos años dura el Milenio?",o:["100","500","1000","7000"],r:2},
+  {q:"¿Quiénes son Gog y Magog?",o:["Dos profetas","Enemigos del fin","Dos apóstoles","Dos reyes de Israel"],r:1},
+  {q:"¿Qué pasará con el cielo y la tierra?",o:["Quedarán igual","Serán nuevos","Desaparecerán","Se quemarán y nada más"],r:1},
+  {q:"¿Quién juzgará en el trono blanco?",o:["Pedro","Jesús","Juan","Pablo"],r:1},
+  {q:"¿Qué río hay en la Nueva Jerusalén?",o:["Río Jordán","Río de agua de vida","Río Nilo","Río Éufrates"],r:1}
+ ]}
+]
+};
+let nivelActual="facil", capActual=0, preguntasActuales=[], yaCalificado=false;
+function ocultarTodo(){["vista-versiculo","vista-niveles","vista-capitulos","vista-quiz"].forEach(id=>document.getElementById(id).style.display="none");}
+function volverVersiculo(){ocultarTodo();document.getElementById("vista-versiculo").style.display="block";window.scrollTo(0,0);}
+function mostrarNiveles(){ocultarTodo();document.getElementById("vista-niveles").style.display="block";window.scrollTo(0,0);}
+function mostrarCapitulos(nivel){
+  nivelActual=nivel; ocultarTodo(); document.getElementById("vista-capitulos").style.display="block";
+  let tit={facil:"🟢 NIVEL FÁCIL",intermedio:"🟡 NIVEL INTERMEDIO",dificil:"🔴 NIVEL DIFÍCIL"};
+  document.getElementById("tituloCaps").innerText=tit[nivel]+" - 4 CAPÍTULOS";
+  let html="";
+  datos[nivel].forEach((c,i)=>{ html+='<div class="cap-card"><b>📖 '+c.nombre+'</b><p>10 preguntas al azar • Haz clic para jugar</p><button style="background:'+(nivel==="facil"?"#22c55e":nivel==="intermedio"?"#eab308":"#ef4444")+';color:'+(nivel==="intermedio"?"#000":"#fff")+'" onclick="empezarCap('+i+')">Jugar '+c.nombre+'</button></div>'; });
+  document.getElementById("listaCaps").innerHTML=html;
+  window.scrollTo(0,0);
+}
+function empezarCap(idx){
+  capActual=idx; yaCalificado=false; ocultarTodo(); document.getElementById("vista-quiz").style.display="block";
+  let cap=datos[nivelActual][idx];
+  document.getElementById("tituloQuiz").innerText=cap.nombre;
+  let copia=[...cap.preguntas].sort(()=>Math.random()-0.5);
+  preguntasActuales=copia.slice(0,10);
+  let html="";
+  preguntasActuales.forEach((p,i)=>{ html+='<div class="pregunta" id="preg-'+i+'"><b>'+(i+1)+'. '+p.q+'</b>'; p.o.forEach((op,j)=>{ html+='<label id="lab-'+i+'-'+j+'"><input type="radio" name="p'+i+'" value="'+j+'"> '+op+'</label>'; }); html+='</div>'; });
+  document.getElementById("preguntas").innerHTML=html;
+  document.getElementById("resultado").style.display="none";
+  document.getElementById("btnCalificar").style.display="block";
+  document.getElementById("btnVerResp").style.display="block";
+  document.getElementById("btnOcultarResp").style.display="none";
+  window.scrollTo(0,0);
+}
+function calificar(){
+  let puntos=0, contest=0;
+  preguntasActuales.forEach((p,i)=>{ let s=document.querySelector('input[name="p'+i+'"]:checked'); if(s){contest++; if(parseInt(s.value)===p.r) puntos++;} });
+  if(contest<10){alert("Te faltan preguntas por responder, ¡marca todas!");return;}
+  yaCalificado=true;
+  document.getElementById("resultado").style.display="block";
+  document.getElementById("nota").innerText=puntos+" / 10";
+  let msg="";
+  if(puntos===10) msg="🏆 ¡PERFECTO! ¡Pasaste este capítulo con 10! Ya puedes ir al siguiente capítulo. ¡Dios te está usando!";
+  else if(puntos>=7) msg="🎉 ¡Muy bien! Casi perfecto. Dale a 'Ver mis respuestas correctas' para aprender las que te faltaron y pasa al siguiente capítulo.";
+  else if(puntos>=4) msg="💪 ¡Buen esfuerzo! Dale a 'Ver mis respuestas correctas' para aprender. Vuelve a jugar y te saldrán otras preguntas. Sigue leyendo la Biblia.";
+  else msg="❤️ ¡No te rindas! Dale a 'Ver mis respuestas correctas' para aprender. Lee un capítulo al día y vuelve a intentarlo. ¡Dios cree en ti!";
+  document.getElementById("mensajeFinal").innerText=msg;
+  document.getElementById("resultado").scrollIntoView({behavior:"smooth"});
+}
+function mostrarRespuestas(){
+  if(!yaCalificado){ alert("Primero dale a 'Ver mi Calificación'"); return; }
+  preguntasActuales.forEach((p,i)=>{
+    let sel=document.querySelector('input[name="p'+i+'"]:checked');
+    let elegido = sel ? parseInt(sel.value) : -1;
+    p.o.forEach((op,j)=>{
+      let lab=document.getElementById('lab-'+i+'-'+j);
+      lab.classList.remove('correcta','incorrecta');
+      // Limpiar etiquetas viejas
+      lab.querySelectorAll('.etiqueta-resp').forEach(e=>e.remove());
+      if(j===p.r){
+        lab.classList.add('correcta');
+        lab.innerHTML += ' <span class="etiqueta-resp etiqueta-ok">✓ CORRECTA</span>';
+      } else if(j===elegido){
+        lab.classList.add('incorrecta');
+        lab.innerHTML += ' <span class="etiqueta-resp etiqueta-mal">✗ TU RESPUESTA</span>';
+      }
+    });
+    // Desactivar para que no cambien después de ver respuestas
+    document.querySelectorAll('input[name="p'+i+'"]').forEach(inp=>inp.disabled=true);
+  });
+  document.getElementById("btnVerResp").style.display="none";
+  document.getElementById("btnOcultarResp").style.display="block";
+  document.getElementById("preguntas").scrollIntoView({behavior:"smooth"});
+}
+function ocultarRespuestas(){
+  preguntasActuales.forEach((p,i)=>{
+    p.o.forEach((op,j)=>{
+      let lab=document.getElementById('lab-'+i+'-'+j);
+      if(lab){ lab.classList.remove('correcta','incorrecta'); lab.querySelectorAll('.etiqueta-resp').forEach(e=>e.remove()); }
+    });
+    document.querySelectorAll('input[name="p'+i+'"]').forEach(inp=>inp.disabled=false);
+  });
+  document.getElementById("btnVerResp").style.display="block";
+  document.getElementById("btnOcultarResp").style.display="none";
+}
+function reiniciar(){ empezarCap(capActual); }
+function siguienteCap(){
+  let total=datos[nivelActual].length;
+  let sig=(capActual+1)%total;
+  if(sig===0){ alert("¡Terminaste los 4 capítulos de este nivel! Ahora prueba el siguiente nivel."); mostrarNiveles(); }
+  else empezarCap(sig);
+}
+// ===== FIREBASE: REACCIONES + TESTIMONIOS =====
+// 1) Reemplaza estos valores con la configuración de tu aplicación web de Firebase.
+// Firebase Console > Configuración del proyecto > Tus aplicaciones > Aplicación web.
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyD0hRiuUJryxuIZDwpSta5cdIrCjudmIX8",
+  authDomain: "familia-luz-del-mundo.firebaseapp.com",
+  projectId: "familia-luz-del-mundo",
+  storageBucket: "familia-luz-del-mundo.firebasestorage.app",
+  messagingSenderId: "386740937962",
+  appId: "1:386740937962:web:177a7881a33602d114a393",
+  measurementId: "G-GNG0Q0X60Q"
+};
+const firebaseConfigurado = Object.values(firebaseConfig).every(v => v && !v.startsWith("TU_"));
+let auth = null, db = null, usuarioActual = null, unsubscribeTestimonios = null;
+let versiculoActual = null;
+const tiposReaccion = ["amen","hablo","lloro","fuerza"];
+
+function mostrarEstadoAuth(mensaje){
+  const el = document.getElementById("authStatus");
+  if(el) el.textContent = mensaje;
+}
+function esGoogle(user){
+  return !!user && !user.isAnonymous &&
+    (user.providerData || []).some(p => p.providerId === "google.com");
+}
+function actualizarInterfazAuth(user){
+  usuarioActual = user || null;
+  const conectadoGoogle = esGoogle(user);
+  const boton = document.getElementById("btnGoogle");
+  const textarea = document.getElementById("textoTestimonio");
+  const publicar = document.getElementById("btnPublicarTestimonio");
+  if(conectadoGoogle){
+    mostrarEstadoAuth("Sesión iniciada con Google. Tu testimonio aparecerá como Anónimo.");
+    boton.style.display = "none";
+    textarea.disabled = false;
+    publicar.disabled = false;
+    textarea.placeholder = "Comparte lo que Dios habló a tu vida (máximo 1000 caracteres)...";
+  } else {
+    mostrarEstadoAuth(user && user.isAnonymous
+      ? "Puedes leer y reaccionar libremente. Inicia sesión con Google para publicar."
+      : "Inicia sesión con Google para publicar un testimonio.");
+    boton.style.display = "block";
+    textarea.disabled = true;
+    publicar.disabled = true;
+  }
+}
+async function iniciarFirebase(){
+  if(!firebaseConfigurado){
+    mostrarEstadoAuth("Falta conectar Firebase: agrega la configuración de tu aplicación web para activar reacciones y testimonios.");
+    document.getElementById("btnGoogle").style.display = "block";
+    document.getElementById("btnGoogle").disabled = true;
+    document.getElementById("listaTestimonios").innerHTML =
+      '<div class="testimonio" style="text-align:center">La conexión con Firebase aún no está configurada.</div>';
+    return;
+  }
+  try{
+    if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    auth = firebase.auth();
+    db = firebase.firestore();
+
+    auth.onAuthStateChanged(async user => {
+      if(!user){
+        try{ await auth.signInAnonymously(); }
+        catch(e){ console.error("No se pudo iniciar sesión anónima:",e); mostrarEstadoAuth("Activa el proveedor Anónimo en Firebase Authentication."); }
+        return;
+      }
+      actualizarInterfazAuth(user);
+      cargarReacciones(versiculoActual);
+    });
+
+    escucharTestimonios();
+  }catch(e){
+    console.error("Error inicializando Firebase:",e);
+    mostrarEstadoAuth("No se pudo conectar con Firebase. Revisa la configuración.");
+  }
+}
+
+// Reacciones: lectura pública y escritura con identidad anónima de Firebase.
+// Cada visitante tiene una sola reacción por versículo; puede cambiarla.
+function _actualizarReacciones(){
+  const ref = document.getElementById("ref").textContent;
+  versiculoActual = ref;
+  cargarReacciones(ref);
+}
+async function cargarReacciones(ref){
+  if(!db || !ref) return;
+  try{
+    const snap = await db.collection("reacciones").where("ref","==",ref).get();
+    const conteo = {amen:0,hablo:0,lloro:0,fuerza:0};
+    snap.forEach(doc=>{
+      const tipo = doc.data().tipo;
+      if(tiposReaccion.includes(tipo)) conteo[tipo]++;
+    });
+    tiposReaccion.forEach(tipo=>{
+      const el = document.getElementById("c-"+tipo);
+      if(el) el.textContent = conteo[tipo];
+    });
+  }catch(e){
+    console.error("Error leyendo reacciones:",e);
+  }
+}
+async function reaccionar(tipo, btn){
+  if(!tiposReaccion.includes(tipo)) return;
+  if(!auth || !db || !auth.currentUser){
+    alert("Las reacciones estarán disponibles cuando Firebase esté conectado.");
+    return;
+  }
+  const user = auth.currentUser;
+  const ref = document.getElementById("ref").textContent;
+  if(!ref) return;
+  const id = encodeURIComponent(ref) + "_" + user.uid;
+  const docRef = db.collection("reacciones").doc(id);
+  try{
+    const anterior = await docRef.get();
+    if(anterior.exists && anterior.data().tipo === tipo){
+      await docRef.delete(); // Tocar de nuevo la misma reacción la quita.
+    }else{
+      await docRef.set({
+        uid:user.uid,
+        ref:ref,
+        tipo:tipo,
+        updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+    await cargarReacciones(ref);
+    document.querySelectorAll(".btn-reaccion").forEach(b=>b.classList.remove("activo"));
+    if(!(anterior.exists && anterior.data().tipo === tipo)) btn.classList.add("activo");
+  }catch(e){
+    console.error("Error guardando reacción:",e);
+    alert("No se pudo guardar tu reacción. Inténtalo nuevamente.");
+  }
+}
+let _origNuevo = nuevo;
+nuevo = function(){
+  _origNuevo();
+  _actualizarReacciones();
+};
+
+// Testimonios: lectura pública; solo cuentas Google autenticadas pueden publicar.
+// El contenido se inserta con textContent para evitar interpretar HTML enviado por visitantes.
+function escucharTestimonios(){
+  if(!db) return;
+  if(unsubscribeTestimonios) unsubscribeTestimonios();
+  unsubscribeTestimonios = db.collection("testimonios")
+    .orderBy("createdAt","desc").limit(50)
+    .onSnapshot(snapshot=>{
+      const contenedor = document.getElementById("listaTestimonios");
+      contenedor.replaceChildren();
+      if(snapshot.empty){
+        const vacio = document.createElement("div");
+        vacio.className = "testimonio";
+        vacio.style.textAlign = "center";
+        vacio.textContent = "Aún no hay testimonios. ¡Sé la primera persona en compartir lo que Dios hizo hoy! ✨";
+        contenedor.appendChild(vacio);
+        return;
+      }
+      snapshot.forEach(doc=>{
+        const t = doc.data();
+        const tarjeta = document.createElement("div");
+        tarjeta.className = "testimonio";
+        const texto = document.createElement("div");
+        texto.textContent = "“" + (t.texto || "") + "”";
+        const meta = document.createElement("small");
+        const fecha = t.createdAt && t.createdAt.toDate
+          ? t.createdAt.toDate().toLocaleDateString("es-PE")
+          : "Reciente";
+        meta.textContent = "Anónimo 🙏 • " + fecha + (t.ref ? " • " + t.ref : "");
+        tarjeta.append(texto,meta);
+        contenedor.appendChild(tarjeta);
+      });
+    },error=>{
+      console.error("Error leyendo testimonios:",error);
+      document.getElementById("listaTestimonios").textContent = "No se pudieron cargar los testimonios.";
+    });
+}
+async function enviarTestimonio(){
+  const user = auth && auth.currentUser;
+  if(!esGoogle(user)){
+    alert("Inicia sesión con Google antes de publicar tu testimonio.");
+    return;
+  }
+  const campo = document.getElementById("textoTestimonio");
+  const txt = campo.value.trim();
+  if(!txt){ alert("Escribe tu testimonio primero 🙏"); return; }
+  if(txt.length > 1000){ alert("Tu testimonio debe tener como máximo 1000 caracteres."); return; }
+  const boton = document.getElementById("btnPublicarTestimonio");
+  boton.disabled = true;
+  try{
+    await db.collection("testimonios").add({
+      texto:txt,
+      ref:document.getElementById("ref").textContent,
+      authorUid:user.uid,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    campo.value = "";
+    alert("¡Gracias por compartir! Tu testimonio se publicó en el muro 💬✨");
+  }catch(e){
+    console.error("Error publicando testimonio:",e);
+    alert("No se pudo publicar. Revisa tu conexión e inténtalo nuevamente.");
+  }finally{
+    boton.disabled = !esGoogle(auth.currentUser);
+  }
+}
+async function iniciarSesionGoogle(){
+  if(!auth){
+    alert("Primero debes completar la configuración de Firebase.");
+    return;
+  }
+  try{
+    const provider = new firebase.auth.GoogleAuthProvider();
+    await auth.signInWithPopup(provider);
+  }catch(e){
+    console.error("Error al iniciar sesión con Google:",e);
+    if(e.code === "auth/popup-blocked" || e.code === "auth/operation-not-supported-in-this-environment"){
+      try{ await auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider()); }
+      catch(err){ alert("No se pudo abrir el inicio de sesión de Google. Revisa los dominios autorizados en Firebase."); }
+    }else if(e.code !== "auth/popup-closed-by-user"){
+      alert("No se pudo iniciar sesión con Google. Verifica que Google esté habilitado en Firebase Authentication.");
+    }
+  }
+}
+_actualizarReacciones();
+iniciarFirebase();
+
+// EDITOR DE IMAGEN
+let cfg = {fondo:0, fuente:0, color:'#ffffff', decoOn:true, deco:'flores', opacidad:70};
+let fondos = [
+  {n:'🌸 Rosado', c1:'#ff9a9e', c2:'#fecfef'},
+  {n:'🌅 Atardecer', c1:'#ff9966', c2:'#ff5e62'},
+  {n:'☁️ Cielo', c1:'#a1c4fd', c2:'#c2e9fb'},
+  {n:'🌊 Azul', c1:'#0f2027', c2:'#2c5364'},
+  {n:'🖤 Noche', c1:'#232526', c2:'#414345'},
+  {n:'💜 Morado', c1:'#654ea3', c2:'#eaafc8'}
+];
+let fuentes = [{n:'Cursiva', f:'Georgia, serif'}, {n:'Fuerte', f:'Arial Black, Arial, sans-serif'}, {n:'Kawaii', f:'"Comic Sans MS", cursive'}, {n:'Clásica', f:'"Times New Roman", serif'}];
+let colores = ['#ffffff','#000000','#FFD700','#FF6B9D','#0f2027','#FFE082'];
+let decos = [{id:'flores', n:'🌸 Flores'}, {id:'nubes', n:'☁️ Nubes'}, {id:'corazones', n:'💛 Corazones'}, {id:'brillos', n:'✨ Brillos'}];
+
+function crearChips(){
+  document.getElementById('optFondo').innerHTML = fondos.map((f,i)=>`<div class="chip ${i===cfg.fondo?'activo':''}" onclick="cfg.fondo=${i};crearChips();dibujar()">${f.n}</div>`).join('');
+  document.getElementById('optFuente').innerHTML = fuentes.map((f,i)=>`<div class="chip ${i===cfg.fuente?'activo':''}" onclick="cfg.fuente=${i};crearChips();dibujar()">${f.n}</div>`).join('');
+  document.getElementById('optColor').innerHTML = colores.map(c=>`<div class="chip ${c===cfg.color?'activo':''}" style="background:${c};color:${c==='#ffffff'?'#333':'#fff'}" onclick="cfg.color='${c}';crearChips();dibujar()">●</div>`).join('');
+  document.getElementById('optDeco').innerHTML = decos.map(d=>`<div class="chip ${d.id===cfg.deco?'activo':''}" onclick="cfg.deco='${d.id}';crearChips();dibujar()">${d.n}</div>`).join('');
+}
+function toggleDeco(){
+  cfg.decoOn = !cfg.decoOn;
+  document.getElementById('switchDeco').classList.toggle('on', cfg.decoOn);
+  document.getElementById('controlDeco').style.opacity = cfg.decoOn ? '1' : '0.4';
+  dibujar();
+}
+function cambiarOpacidad(v){
+  cfg.opacidad = parseInt(v);
+  document.getElementById('valorOpacidad').textContent = v + '%';
+  dibujar();
+}
+function abrirEditor(){
+  document.getElementById('modalEditor').style.display='flex';
+  crearChips(); dibujar();
+}
+function cerrarEditor(){ document.getElementById('modalEditor').style.display='none'; }
+function dibujar(){
+  let cv = document.getElementById('previewCanvas');
+  let ctx = cv.getContext('2d');
+  let f = fondos[cfg.fondo];
+  let grad = ctx.createLinearGradient(0,0,0,1080);
+  grad.addColorStop(0,f.c1); grad.addColorStop(1,f.c2);
+  ctx.fillStyle = grad; ctx.fillRect(0,0,1080,1080);
+  // Decoración con opacidad
+  if(cfg.decoOn){
+    ctx.globalAlpha = cfg.opacidad/100;
+    ctx.font = '90px Arial'; ctx.textAlign='center';
+    let emojis = cfg.deco==='flores' ? ['🌸','🌷','🌺'] : cfg.deco==='nubes' ? ['☁️','🌤️','☁️'] : cfg.deco==='corazones' ? ['💛','❤️','💖'] : ['✨','⭐','✨'];
+    ctx.fillText(emojis[0], 90, 110); ctx.fillText(emojis[1], 990, 110);
+    ctx.fillText(emojis[2], 90, 990); ctx.fillText(emojis[0], 990, 990);
+    ctx.fillText(emojis[1], 540, 80); ctx.fillText(emojis[2], 540, 1010);
+    ctx.globalAlpha = 1;
+  }
+  // Texto versículo
+  let texto = document.getElementById('texto').textContent;
+  let ref = document.getElementById('ref').textContent;
+  ctx.fillStyle = cfg.color; ctx.textAlign='center';
+  ctx.font = 'bold 58px ' + fuentes[cfg.fuente].f;
+  // Dividir en líneas
+  let palabras = texto.split(' '); let lineas=[]; let linea='';
+  palabras.forEach(p=>{ let prueba = linea + ' ' + p; if(ctx.measureText(prueba).width > 880){ lineas.push(linea); linea=p; } else linea=prueba; });
+  lineas.push(linea);
+  let y = 540 - (lineas.length*38);
+  lineas.forEach(l=>{ ctx.fillText(l.trim(), 540, y); y+=78; });
+  ctx.font = 'bold 38px Arial'; ctx.fillStyle = '#FFD700';
+  ctx.fillText(ref, 540, y+50);
+  // Marca de agua - SIEMPRE abajo a la derecha
+  ctx.font = 'bold 26px Arial'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.9)';
+  ctx.fillText('Luz del Mundo Pacasmayo', 1050, 1050);
+}
+function descargarImagen(){
+  dibujar();
+  let a = document.createElement('a');
+  a.download = 'versiculo-luz-del-mundo.png';
+  a.href = document.getElementById('previewCanvas').toDataURL('image/png');
+  a.click();
+}
+async function compartirImagen(){
+  dibujar();
+  let cv = document.getElementById('previewCanvas');
+  cv.toBlob(async (blob)=>{
+    let file = new File([blob], 'versiculo.png', {type:'image/png'});
+    if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+      try{ await navigator.share({files:[file], text:'Mira este versículo que me habló hoy 🙏 Luz del Mundo Pacasmayo'}); }catch(e){}
+    } else {
+      descargarImagen();
+      alert('Tu imagen se descargó. Ahora puedes subirla a tu estado de WhatsApp o Instagram 📲');
+    }
+  });
+}
+</script>
+
+<div class="modal-img" id="modalEditor">
+  <div class="modal-box">
+    <h3 style="margin-bottom:4px">🎨 Personaliza tu imagen</h3>
+    <p style="font-size:13px;color:#666;margin-bottom:10px">Mueve todo a tu gusto y luego compártela</p>
+    <canvas id="previewCanvas" width="1080" height="1080"></canvas>
+
+    <div class="control"><label>🌅 Fondo</label><div class="opciones" id="optFondo"></div></div>
+    <div class="control"><label>✍️ Tipo de letra</label><div class="opciones" id="optFuente"></div></div>
+    <div class="control"><label>🎨 Color del texto</label><div class="opciones" id="optColor"></div></div>
+
+    <div class="control">
+      <div class="switch-row"><b>🌸 Decoración</b><div class="switch on" id="switchDeco" onclick="toggleDeco()"></div></div>
+    </div>
+    <div class="control" id="controlDeco">
+      <label>✨ Decoración</label><div class="opciones" id="optDeco"></div>
+      <label style="margin-top:12px">👻 Opacidad de la decoración: <span id="valorOpacidad">70%</span></label>
+      <input type="range" id="sliderOpacidad" min="0" max="100" value="70" oninput="cambiarOpacidad(this.value)">
+    </div>
+
+    <button class="btn-descargar" onclick="descargarImagen()">📥 Descargar imagen</button>
+    <button class="btn-compartir" onclick="compartirImagen()">📲 Compartir en WhatsApp / Redes</button>
+    <button class="btn-gris" onclick="cerrarEditor()">✖ Cerrar</button>
+    <small style="color:#999">Marca de agua: Luz del Mundo Pacasmayo • abajo a la derecha</small>
+  </div>
+</div>
+</body>
+</html>
