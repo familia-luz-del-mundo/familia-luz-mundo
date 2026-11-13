@@ -445,21 +445,26 @@ function abrirIntro(){
     nuevo();
   }, 1100);
 }
-function nuevo(){function abrirIntro(){
+function abrirIntro(){
   document.getElementById('intro').classList.add('abierta');
   setTimeout(()=>{
     document.getElementById('intro').style.display='none';
     nuevo();
   }, 1100);
 }
+
+function nuevo(){
   const v=versiculos[Math.floor(Math.random()*versiculos.length)];
   document.getElementById('texto').textContent='"'+v.texto+'"';
   document.getElementById('ref').textContent=v.ref+' - RVR1960';
   document.getElementById('msg').textContent=v.msg;
-  if(!modoOscuro){
-    document.getElementById('bg').style.background=paletas[Math.floor(Math.random()*paletas.length)];
-  } else {
-    document.getElementById('bg').style.background='#0f0f0f';
+  const bg=document.getElementById('bg');
+  if(bg){
+    if(!modoOscuro){
+      bg.style.background=paletas[Math.floor(Math.random()*paletas.length)];
+    } else {
+      bg.style.background='#e0e0e0';
+    }
   }
 }
 nuevo();
